@@ -11,18 +11,33 @@ import (
 
 type Budget struct {
 	//below is the fields below within it associated types 
-	//If Field is Captilized, it is accessable outside of the package (public),
-	//else if lower case, the field is only accessable within the package (private)
-	
+	//If Field is Captilized, it is accessable outside of the package (public) aka exported symbols,
+	//else if lower case, the field is only accessable within the package (private) aka unexported symbols
+
 	CampaignID string 
 	Balance float64 //USD
-	Expries time.Time 
+	Expires time.Time 
+}
+
+//defining a methods for budget 
+// b ensures that is method belong only for an instance of Budget 
+//TimeLeft is the method name & time.Duration is the return value 
+func (b Budget) TimeLeft() time.Duration {
+	return b.Expires.Sub(time.Now().UTC()) // take in expiration date and subtracts current time in UTC 
+}
+
+// * (pointer receiver which will change that instance field's balance ) 
+func (b *Budget) Update(sum float64) {
+	b.Balance += sum
 }
 
 
 func main() {
 	b1 := Budget{"Kittens", 22.3, time.Now().Add(7 * 24 * time.Hour)}
-	fmt.Println(b1)
+	fmt.Println(b1.TimeLeft())
+
+	b1.Update(10.5)
+	fmt.Println(b1.Balance)
 
 	fmt.Printf("%#v\n", b1) //allows you to see more; such as field name 
 
