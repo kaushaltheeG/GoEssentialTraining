@@ -19,6 +19,31 @@ type Budget struct {
 	Expires time.Time 
 }
 
+//the "constructor method for Go's structs"
+//accepts the Budget fields and returns an appointed Budget instance and error 
+func NewBudget(campaignId string, balance float64, expires time.Time) (*Budget, error) {
+	if campaignId == "" {
+		return nil, fmt.Errorf("empty CampaignID")
+	}
+
+	if balance <= 0 {
+		return nil, fmt.Errorf("balance cannot be 0 or less")
+	}
+
+	if expires.Before(time.Now()) {
+		return nil, fmt.Errorf("choose a time before now")
+	}
+
+	b := Budget{
+		CampaignID: campaignId,
+		Balance: balance,
+		Expires: expires,
+	}
+
+	//& is the pointer returned with the variable 
+	return &b, nil
+}
+
 //defining a methods for budget 
 // b ensures that is method belong only for an instance of Budget 
 //TimeLeft is the method name & time.Duration is the return value 
@@ -33,28 +58,41 @@ func (b *Budget) Update(sum float64) {
 
 
 func main() {
-	b1 := Budget{"Kittens", 22.3, time.Now().Add(7 * 24 * time.Hour)}
-	fmt.Println(b1.TimeLeft())
+	/* 
+		b1 := Budget{"Kittens", 22.3, time.Now().Add(7 * 24 * time.Hour)}
+		fmt.Println(b1.TimeLeft())
 
-	b1.Update(10.5)
-	fmt.Println(b1.Balance)
+		b1.Update(10.5)
+		fmt.Println(b1.Balance)
 
-	fmt.Printf("%#v\n", b1) //allows you to see more; such as field name 
+		fmt.Printf("%#v\n", b1) //allows you to see more; such as field name 
 
-	//keying into a field 
-	fmt.Println(b1.CampaignID)
+		//keying into a field 
+		fmt.Println(b1.CampaignID)
 
-	//defining a struct while omiting some fields 
-	//Omited fields are given there default value of 0; for time it is jan 1
-	b2 := Budget{
-		Balance: 19.3,
-		CampaignID: "pups",
+		//defining a struct while omiting some fields 
+		//Omited fields are given there default value of 0; for time it is jan 1
+		b2 := Budget{
+			Balance: 19.3,
+			CampaignID: "pups",
+		}
+
+		fmt.Printf("%#v\n", b2)
+
+		var b3 Budget
+		fmt.Printf("%#v\n",b3)
+	*/
+	
+	expires := time.Now().Add(7 * 24 * time.Hour)
+
+	b1, err := NewBudget("pups", 32.2, expires)
+
+	if err != nil {
+		fmt.Println("Error:", err)
+	} else {
+		fmt.Println(b1)
 	}
 
-	fmt.Printf("%#v\n", b2)
-
-	var b3 Budget
-	fmt.Printf("%#v\n",b3)
 
 
 }
