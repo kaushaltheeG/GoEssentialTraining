@@ -8,7 +8,7 @@ import (
 /* 
 	Struct: the class that allows you to keep track of several fields
 */
-
+//heheh
 type Budget struct {
 	//below is the fields below within it associated types 
 	//If Field is Captilized, it is accessable outside of the package (public) aka exported symbols,
