@@ -81,6 +81,7 @@ func main() {
 
 		var b3 Budget
 		fmt.Printf("%#v\n",b3)
+		//
 	*/
 	
 	expires := time.Now().Add(7 * 24 * time.Hour)
