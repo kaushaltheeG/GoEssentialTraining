@@ -64,7 +64,7 @@ func main() {
 
 		b1.Update(10.5)
 		fmt.Println(b1.Balance)
-// //
+// // //
 		fmt.Printf("%#v\n", b1) //allows you to see more; such as field name 
 
 		//keying into a field 
