@@ -2,6 +2,7 @@ package sqrt
 
 import (
 	"errors"
+	"math"
 )
 
 //common errors
@@ -19,6 +20,6 @@ func Abs(val float64) float64  {
 }
 
 //sqrt function 
-func Sqrt(num float64) float64 {
-	return Abs(num) 
+func Sqrt(num float64) (float64,error) {
+	return math.Sqrt(Abs(num)), nil 
 }
